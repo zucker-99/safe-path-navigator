@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, ArrowLeft, Navigation } from 'lucide-react';
+import { Search, ArrowLeft, Navigation, Sparkles } from 'lucide-react';
 import MapPlaceholder from '@/components/MapPlaceholder';
 import BottomSheet from '@/components/BottomSheet';
 import RouteCard from '@/components/RouteCard';
@@ -29,7 +29,7 @@ const MapScreen = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="min-h-screen relative">
       {/* Map */}
       <div className="absolute inset-0">
         <MapPlaceholder
@@ -40,13 +40,13 @@ const MapScreen = () => {
       </div>
 
       {/* Search Header */}
-      <div className="absolute top-0 left-0 right-0 z-20 p-4 pt-12">
-        <div className="bg-card/95 backdrop-blur-lg rounded-2xl p-3 flex items-center gap-3 shadow-card">
+      <div className="absolute top-0 left-0 right-0 z-20 p-4 pt-10">
+        <div className="glass-card p-3 flex items-center gap-3" style={{ background: 'linear-gradient(145deg, hsla(210, 45%, 18%, 0.85) 0%, hsla(207, 55%, 11%, 0.95) 100%)' }}>
           <button
             onClick={() => showRoutes ? setShowRoutes(false) : navigate(-1)}
-            className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center touch-feedback"
+            className="w-11 h-11 rounded-xl bg-gradient-to-br from-secondary to-muted/50 flex items-center justify-center touch-feedback"
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft size={20} className="text-foreground" />
           </button>
           <div className="flex-1">
             <input
@@ -55,12 +55,12 @@ const MapScreen = () => {
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-              className="w-full bg-transparent text-foreground placeholder:text-muted-foreground outline-none"
+              className="w-full bg-transparent text-foreground placeholder:text-muted-foreground outline-none text-base"
             />
           </div>
           <button
             onClick={handleSearch}
-            className="w-10 h-10 rounded-full bg-primary flex items-center justify-center touch-feedback"
+            className="w-11 h-11 rounded-xl bg-gradient-to-r from-primary to-accent flex items-center justify-center touch-feedback shadow-glow-teal"
           >
             <Search size={18} className="text-primary-foreground" />
           </button>
@@ -75,7 +75,10 @@ const MapScreen = () => {
       {/* Route Selection Bottom Sheet */}
       {showRoutes && (
         <BottomSheet height="half">
-          <h2 className="text-lg font-semibold text-foreground mb-4">Choose Your Route</h2>
+          <div className="flex items-center gap-2 mb-4">
+            <Sparkles size={18} className="text-warning" />
+            <h2 className="text-lg font-bold text-foreground">Choose Your Route</h2>
+          </div>
           
           <div className="space-y-3 mb-6">
             {mockRoutes.map((route) => (
@@ -92,7 +95,7 @@ const MapScreen = () => {
           <button
             onClick={handleStartNavigation}
             disabled={!selectedRoute}
-            className="w-full bg-primary text-primary-foreground py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-2 touch-feedback disabled:opacity-50"
+            className="w-full btn-gradient text-primary-foreground py-4 rounded-2xl font-semibold text-lg flex items-center justify-center gap-2 touch-feedback disabled:opacity-50"
           >
             <Navigation size={20} />
             Start Navigation
